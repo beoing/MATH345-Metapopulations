@@ -17,7 +17,7 @@ for(year in 1:t) {
 
   for(operation in 1:9) {
     M <- createM()
-    n <- optimal_node
+    n <- solution_model[,year]
 
     if (operation <= 5) {
       M <- augmentM(M, operation)
