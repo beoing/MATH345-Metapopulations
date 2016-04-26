@@ -150,9 +150,9 @@ heuristic <- function(n, operation){
   # juvenile weight
   j <- .85
   # EDM cost
-  edm <- 10
+  edm <- 0.5
   # Puppies cost
-  puppies <- 20
+  puppies <- 50
 
   value <- (n[1] * w[1] + n[2] * w[2] + n[3] * w[3] + 
     n[4] * w[4] + n[5] * w[5]) * j
