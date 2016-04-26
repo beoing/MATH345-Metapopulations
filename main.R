@@ -26,7 +26,7 @@ for(year in 1:t) {
     }
 
     node <- B%*%M%*%n
-    heur <- heuristic(current_node, operation)
+    heur <- heuristic(node, operation)
 
     if(heur < solution_heuristics[year]) {
       current_node <- node

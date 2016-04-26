@@ -146,13 +146,13 @@ createB <- function(){
 heuristic <- function(n, operation){
   
   # weights
-  w <- c(0.02, 0.03, 0.07, 0.08, 0.8)
+  w <- c(1, 1, 1, 1, 2)
   # juvenile weight
   j <- .85
   # EDM cost
-  edm <- 5
+  edm <- 10
   # Puppies cost
-  puppies <- 10
+  puppies <- 20
 
   value <- (n[1] * w[1] + n[2] * w[2] + n[3] * w[3] + 
     n[4] * w[4] + n[5] * w[5]) * j
