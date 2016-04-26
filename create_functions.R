@@ -142,18 +142,29 @@ createB <- function(){
   B
 }
 
-### test
+# function to calculate heuristic
+heuristic <- function(n, operation){
+  
+  # weights
+  w <- c(0.02, 0.03, 0.07, 0.08, 0.8)
+  # juvenile weight
+  j <- .85
+  # EDM cost
+  edm <- 5
+  # Puppies cost
+  puppies <- 10
 
-# initial population
-n0 = c(60,0,0,0,0,50,0,0,0,0)
-M <- createM()
-B <- createB()
-# number of time units - 1
-t = 16
-n=matrix(0,10,t)
-n[,1]= n0
-for (i in 2:t)
-{
-  n[,i] = B%*%M%*%n[,i-1]
+  value <- (n[1] * w[1] + n[2] * w[2] + n[3] * w[3] + 
+    n[4] * w[4] + n[5] * w[5]) * j
+
+  value <- value + (n[6] * w[1] + n[7] * w[2] + n[8] * 
+    w[3] + n[9] * w[4] + n[10] * w[5])
+
+  if(operation > 0 && operation < 6) {
+    value <- value + edm
+  } else if(operation >= 6) {
+    value <- value + puppies
+  } # else nop
+
+  value
 }
-
