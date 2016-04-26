@@ -11,8 +11,8 @@ t <- 15
 for(year in 1:t) {
 
   # default operation: do nothing
-  current_node <- B%*%createM()%*%solution_model[year]
-  current_solution <- 0
+  current_node <- B%*%createM()%*%solution_model[,year]
+  current_operation <- 0
   current_heuristic <- heuristic(current_node, current_solution)
 
   for(operation in 1:9) {
@@ -26,12 +26,12 @@ for(year in 1:t) {
     }
 
     node <- B%*%M%*%n
-    heuristic <- heuristic(current_node, operation)
+    heur <- heuristic(current_node, operation)
 
-    if(new_heuristic < solution_heuristics[year]) {
+    if(heur < solution_heuristics[year]) {
       current_node <- node
       current_operation <- operation
-      current_heuristic <- heuristic
+      current_heuristic <- heur
     }
 
   }
@@ -42,8 +42,4 @@ for(year in 1:t) {
 }
 
 # print out solutions
-
-
-
-
 
