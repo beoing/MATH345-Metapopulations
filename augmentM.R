@@ -5,11 +5,10 @@
 # Input: M = transition matrix
 #        n = assignment number (E1->21,E2->31,E3->42,E4->53,E5->54)
 #        r = reduction coefficient
+#        d = killing coefficient (1-d is the rate at which the blocked
+#                                   migrants survive, default is 1)
 # Output: the properly augmented matrix
-augmentM <- function(M,n,r=.01){
-  
-  # 1 - d is the rate at which the blocked migrating AWHs die
-  d = 1
+augmentM <- function(M,n,r=.01,d=1){
   
   if (n==1) {
     # juvenile
