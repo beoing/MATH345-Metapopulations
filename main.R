@@ -13,7 +13,7 @@ for(year in 1:t) {
   # default operation: do nothing
   current_node <- B%*%createM()%*%solution_model[,year]
   current_operation <- 0
-  current_heuristic <- heuristic(current_node, current_solution)
+  current_heuristic <- heuristic(current_node, current_operation)
 
   for(operation in 1:9) {
     M <- createM()
