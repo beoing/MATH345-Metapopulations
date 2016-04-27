@@ -42,4 +42,4 @@ for(year in 1:t) {
 }
 
 # print out solutions
-
+solution_operations
