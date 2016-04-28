@@ -274,15 +274,52 @@ heuristic <- function(n, operation){
   value
 }
 
+# Prints out ASCII art of a model at time t
+# Input: sm = solution_model
+#         t = time segment of model to print out
+# Output: screen output of model art
+print_model <- function(sm = solution_model, t){
+  print(sprintf("The model at time t = %d is:  ", t))
+  print(sprintf("     --------         --------"))
+  print(sprintf("     |%06s|         |%06s|", strtrim(sm[4, t+1],6), strtrim(sm[5, t+1],6)))
+  print(sprintf("     |------|=========|------|"))
+  print(sprintf("     |%06s|         |%06s|", strtrim(sm[9, t+1],6), strtrim(sm[10, t+1],6)))
+  print(sprintf("     --------         --------"))
+  print(sprintf("       //                ||   "))
+  print(sprintf("      //          ^  ^   ||   "))
+  print(sprintf("     //         ^   ^    ||   "))
+  print(sprintf("    //        ^   ^  ^   ||   "))
+  print(sprintf("   //          ^  ^   ^  ||   "))
+  print(sprintf("--------     ^    ^  ^   ||   "))
+  print(sprintf("|%06s|       ^  ^   ^  ||   ", strtrim(sm[2, t+1],6)))
+  print(sprintf("|------|    ^  ^   ^     ||   "))
+  print(sprintf("|%06s|     ^   ^  ^    ||   ", strtrim(sm[7, t+1],6)))
+  print(sprintf("--------   ^   ^   ^     ||   "))
+  print(sprintf("   ||         ^  ^       ||   "))
+  print(sprintf("   ||       ^   ^        ||   "))
+  print(sprintf("   ||         ^          ||   "))
+  print(sprintf("   ||      ^   ^         ||   "))
+  print(sprintf("   ||         ^          ||   "))
+  print(sprintf("--------              --------"))
+  print(sprintf("|%06s|              |%06s|", strtrim(sm[1, t+1],6), strtrim(sm[3, t+1],6)))
+  print(sprintf("|------|==============|------|"))
+  print(sprintf("|%06s|              |%06s|", strtrim(sm[6, t+1],6), strtrim(sm[7, t+1],6)))
+  print(sprintf("--------              --------"))
+}
 
-main <- function(j, a, t = 15){
+# Main method of simulation
+# Input: j = initial number of juveniles
+#        a = initial number of adults
+#        t = time of simulation
+# Output: solution model, ops, heuristics (global vars)
+main <- function(j = 50, a = 30, t = 15){
   
-  solution_model <- matrix(0, 10, t+1)
-  solution_model[,1] = c(j,0,0,0,0,a,0,0,0,0) #n0
-  # solution_model[,1] = c(j,10,10,0,0,a,5,5,0,0) #n0
-  solution_operations <- rep(0, t+1)
-  solution_heuristics <- rep(0, t+1)
-  solution_heuristics[1] = heuristic(solution_model[,1], 0)
+  solution_model <<- matrix(0, 10, t+1)
+  solution_model[,1] <<- c(j,0,0,0,0,a,0,0,0,0) #n0
+  # solution_model[,1] <<- c(j,10,10,0,0,a,5,5,0,0) #n0 
+  solution_operations <<- rep(0, t+1)
+  solution_heuristics <<- rep(0, t+1)
+  solution_heuristics[1] <<- heuristic(solution_model[,1], 0)
   
   B <- createB()
   
@@ -314,13 +351,13 @@ main <- function(j, a, t = 15){
   
     }
   
-    solution_model[,year+1] <- current_node
-    solution_operations[year+1] <- current_operation
-    solution_heuristics[year+1] <- current_heuristic
+    solution_model[,year+1] <<- current_node
+    solution_operations[year+1] <<- current_operation
+    solution_heuristics[year+1] <<- current_heuristic
   }
   
   # print out solutions
-  print(solution_operations)
-  solution_model
+  # print(solution_operations)
+  # print_model(solution_model, t)
 }
   
