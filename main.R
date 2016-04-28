@@ -228,9 +228,9 @@ augmentM <- function(M,n,r=.01,d=1){
 # Input: n = current pop. vector (assume it's not a matrix...can be changed)
 #        op = operation number (6->1, 7->2, 8->3, 9->4)
 #        ju = juvenile reduction number (default=30)
-#        ad = adult reduction number (default=20)
+#        ad = adult reduction number (default=15)
 # Output: the properly augmented pop. vector
-augmentN <- function(n, op, ju=30, ad=20){
+augmentN <- function(n, op, ju=30, ad=15){
   if (op==6) {
     n <- n - c(ju,0,0,0,0,ad,0,0,0,0)
   } else if (op==7) {
@@ -251,11 +251,11 @@ augmentN <- function(n, op, ju=30, ad=20){
 heuristic <- function(n, operation){
   
   # weights
-  w <- c(1, 2, 3, 4, 10)
+  w <- c(1, 1, 1, 1, 5)
   # juvenile weight
-  j <- .85
+  j <- .75
   # EDM cost
-  edm <- 0.5
+  edm <- 5
   # Puppies cost
   puppies <- 50
   
@@ -274,50 +274,53 @@ heuristic <- function(n, operation){
   value
 }
 
-t <- 15
 
-solution_model <- matrix(0, 10, t+1)
-solution_model[,1] = c(60,0,0,0,0,50,0,0,0,0) #n0
-solution_operations <- rep(0, t+1)
-solution_heuristics <- rep(0, t+1)
-solution_heuristics[1] = heuristic(solution_model[,1], 0)
-
-B <- createB()
-
-for(year in 1:t) {
-
-  # default operation: do nothing
-  current_node <- B%*%createM()%*%solution_model[,year]
-  current_operation <- 0
-  current_heuristic <- heuristic(current_node, current_operation)
-
-  for(operation in 1:9) {
-    M <- createM()
-    n <- solution_model[,year]
-
-    if (operation <= 5) {
-      M <- augmentM(M, operation)
-    } else {
-      n <- augmentN(n, operation)
+main <- function(j, a, t = 15){
+  
+  solution_model <- matrix(0, 10, t+1)
+  solution_model[,1] = c(j,0,0,0,0,a,0,0,0,0) #n0
+  # solution_model[,1] = c(j,10,10,0,0,a,5,5,0,0) #n0
+  solution_operations <- rep(0, t+1)
+  solution_heuristics <- rep(0, t+1)
+  solution_heuristics[1] = heuristic(solution_model[,1], 0)
+  
+  B <- createB()
+  
+  for(year in 1:t) {
+  
+    # default operation: do nothing
+    current_node <- B%*%createM()%*%solution_model[,year]
+    current_operation <- 0
+    current_heuristic <- heuristic(current_node, current_operation)
+  
+    for(operation in 1:9) {
+      M <- createM()
+      n <- solution_model[,year]
+  
+      if (operation <= 5) {
+        M <- augmentM(M, operation)
+      } else {
+        n <- augmentN(n, operation)
+      }
+  
+      node <- B%*%M%*%n
+      heur <- heuristic(node, operation)
+  
+      if(heur < current_heuristic) {
+        current_node <- node
+        current_operation <- operation
+        current_heuristic <- heur
+      }
+  
     }
-
-    node <- B%*%M%*%n
-    heur <- heuristic(node, operation)
-
-    if(heur < current_heuristic) {
-      current_node <- node
-      current_operation <- operation
-      current_heuristic <- heur
-    }
-
+  
+    solution_model[,year+1] <- current_node
+    solution_operations[year+1] <- current_operation
+    solution_heuristics[year+1] <- current_heuristic
   }
-
-  solution_model[,year+1] <- current_node
-  solution_operations[year+1] <- current_operation
-  solution_heuristics[year+1] <- current_heuristic
+  
+  # print out solutions
+  print(solution_operations)
+  solution_model
 }
-
-# print out solutions
-solution_operations
-
-
+  
