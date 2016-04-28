@@ -307,6 +307,44 @@ print_model <- function(sm = solution_model, t){
   print(sprintf("--------              --------"))
 }
 
+# Function to print table of operations
+# Input: 
+print_ops <- function(ops){
+  solutions <- data.frame(stringsAsFactors = TRUE)
+  for(i in 1:(length(ops)-1))
+  {
+    if (ops[i]==0) {
+      solutions[i,1] <- "No operation"
+    } else if (ops[i]==1) {
+      solutions[i,1] <- "EDM between 1 and 2"
+    } else if (ops[i]==2) {
+      solutions[i,1] <- "EDM between 1 and 3"
+    } else if (ops[i]==3) {
+      solutions[i,1] <- "EDM between 2 and 4"
+    } else if (ops[i]==4) {
+      solutions[i,1] <- "EDM between 3 and 5"
+    } else if (ops[i]==5) {
+      solutions[i,1] <- "EDM between 4 and 5"
+    } else if (ops[i]==6) {
+      solutions[i,1] <- "Puppy Squad in 1"
+    } else if (ops[i]==7) {
+      solutions[i,1] <- "Puppy Squad in 2"
+    } else if (ops[i]==8) {
+      solutions[i,1] <- "Puppy Squad in 3"
+    } else {
+      solutions[i,1] <- "Puppy Squad in 4"
+    }
+  }
+  colnames(solutions) <- c("Operation")
+  rows <- c(1:(length(ops)-1))
+  years <- rep("Year",(length(ops)-1))
+  colons <- rep(":",(length(ops)-1))
+  names <- paste(years,rows,sep=" ")
+  names <- paste(names,colons, sep="")
+  rownames(solutions)<-names
+  solutions
+}
+
 # Main method of simulation
 # Input: j = initial number of juveniles
 #        a = initial number of adults
