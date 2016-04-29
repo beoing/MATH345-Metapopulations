@@ -278,58 +278,72 @@ heuristic <- function(n, operation){
 # Input: sm = solution_model
 #         t = time segment of model to print out
 # Output: screen output of model art
-print_model <- function(sm = solution_model, t){
-  print(sprintf("The model at time t = %d is:  ", t))
-  print(sprintf("     --------         --------"))
-  print(sprintf("     |%06s|         |%06s|", strtrim(sm[4, t+1],6), strtrim(sm[5, t+1],6)))
-  print(sprintf("     |------|=========|------|"))
-  print(sprintf("     |%06s|         |%06s|", strtrim(sm[9, t+1],6), strtrim(sm[10, t+1],6)))
-  print(sprintf("     --------         --------"))
-  print(sprintf("       //                ||   "))
-  print(sprintf("      //          ^  ^   ||   "))
-  print(sprintf("     //         ^   ^    ||   "))
-  print(sprintf("    //        ^   ^  ^   ||   "))
-  print(sprintf("   //          ^  ^   ^  ||   "))
-  print(sprintf("--------     ^    ^  ^   ||   "))
-  print(sprintf("|%06s|       ^  ^   ^  ||   ", strtrim(sm[2, t+1],6)))
-  print(sprintf("|------|    ^  ^   ^     ||   "))
-  print(sprintf("|%06s|     ^   ^  ^    ||   ", strtrim(sm[7, t+1],6)))
-  print(sprintf("--------   ^   ^   ^     ||   "))
-  print(sprintf("   ||         ^  ^       ||   "))
-  print(sprintf("   ||       ^   ^        ||   "))
-  print(sprintf("   ||         ^          ||   "))
-  print(sprintf("   ||      ^   ^         ||   "))
-  print(sprintf("   ||         ^          ||   "))
-  print(sprintf("--------              --------"))
-  print(sprintf("|%06s|              |%06s|", strtrim(sm[1, t+1],6), strtrim(sm[3, t+1],6)))
-  print(sprintf("|------|==============|------|"))
-  print(sprintf("|%06s|              |%06s|", strtrim(sm[6, t+1],6), strtrim(sm[7, t+1],6)))
-  print(sprintf("--------              --------"))
+print_model <- function(sm = solution_model, t = 15){
+  
+  cat("The model over time is: \n\n")
+  
+  colnames(sm) <- c("n0", "n1", "n2", "n3", "n4", "n5", "n6", 
+                  "n7", "n8", "n9", "n10", "n11", "n12", 
+                  "n13", "n14", "n15") 
+  rownames(sm) <- c("j1", "j2", "j3", "j4", "j5", "a1", "a2", "a3", "a4", "a5")
+  print(sm)
+  Sys.sleep(.5)
+  cat("\n\n")
+  
+  
+  
+  
+  cat(sprintf("The model at time t = %d is:  \n\n", t))
+  cat(sprintf("     --------         --------\n"))
+  cat(sprintf("     |%06s|         |%06s|\n", strtrim(sm[4, t+1],6), strtrim(sm[5, t+1],6)))
+  cat(sprintf("     |------|=========|------|\n"))
+  cat(sprintf("     |%06s|         |%06s|\n", strtrim(sm[9, t+1],6), strtrim(sm[10, t+1],6)))
+  cat(sprintf("     --------         --------\n"))
+  cat(sprintf("       //                ||   \n"))
+  cat(sprintf("      //          ^  ^   ||   \n"))
+  cat(sprintf("     //         ^   ^    ||   \n"))
+  cat(sprintf("    //        ^   ^  ^   ||   \n"))
+  cat(sprintf("   //          ^  ^   ^  ||   \n"))
+  cat(sprintf("--------     ^    ^  ^   ||   \n"))
+  cat(sprintf("|%06s|       ^  ^   ^  ||   \n", strtrim(sm[2, t+1],6)))
+  cat(sprintf("|------|    ^  ^   ^     ||   \n"))
+  cat(sprintf("|%06s|     ^   ^  ^    ||   \n", strtrim(sm[7, t+1],6)))
+  cat(sprintf("--------   ^   ^   ^     ||   \n"))
+  cat(sprintf("   ||         ^  ^       ||   \n"))
+  cat(sprintf("   ||       ^   ^        ||   \n"))
+  cat(sprintf("   ||         ^          ||   \n"))
+  cat(sprintf("   ||      ^   ^         ||   \n"))
+  cat(sprintf("   ||         ^          ||   \n"))
+  cat(sprintf("--------              --------\n"))
+  cat(sprintf("|%06s|              |%06s|\n", strtrim(sm[1, t+1],6), strtrim(sm[3, t+1],6)))
+  cat(sprintf("|------|==============|------|\n"))
+  cat(sprintf("|%06s|              |%06s|\n", strtrim(sm[6, t+1],6), strtrim(sm[7, t+1],6)))
+  cat(sprintf("--------              --------\n\n\n"))
 }
 
 # Function to print table of operations
 # Input: 
-print_ops <- function(ops){
+print_ops <- function(ops = solution_operations){
   solutions <- data.frame(stringsAsFactors = TRUE)
   for(i in 1:(length(ops)-1))
   {
-    if (ops[i]==0) {
+    if (ops[i+1]==0) {
       solutions[i,1] <- "No operation"
-    } else if (ops[i]==1) {
+    } else if (ops[i+1]==1) {
       solutions[i,1] <- "EDM between 1 and 2"
-    } else if (ops[i]==2) {
+    } else if (ops[i+1]==2) {
       solutions[i,1] <- "EDM between 1 and 3"
-    } else if (ops[i]==3) {
+    } else if (ops[i+1]==3) {
       solutions[i,1] <- "EDM between 2 and 4"
-    } else if (ops[i]==4) {
+    } else if (ops[i+1]==4) {
       solutions[i,1] <- "EDM between 3 and 5"
-    } else if (ops[i]==5) {
+    } else if (ops[i+1]==5) {
       solutions[i,1] <- "EDM between 4 and 5"
-    } else if (ops[i]==6) {
+    } else if (ops[i+1]==6) {
       solutions[i,1] <- "Puppy Squad in 1"
-    } else if (ops[i]==7) {
+    } else if (ops[i+1]==7) {
       solutions[i,1] <- "Puppy Squad in 2"
-    } else if (ops[i]==8) {
+    } else if (ops[i+1]==8) {
       solutions[i,1] <- "Puppy Squad in 3"
     } else {
       solutions[i,1] <- "Puppy Squad in 4"
@@ -350,7 +364,30 @@ print_ops <- function(ops){
 #        a = initial number of adults
 #        t = time of simulation
 # Output: solution model, ops, heuristics (global vars)
-main <- function(j = 50, a = 30, t = 15){
+main <- function(j = 100, a = 80, t = 15, fun = 10){
+  
+  if(fun > 0) {
+    cat("Certainly! I'll start that simulation up for you.\n")
+    cat("\n")
+    cat("\n")
+    cat("\n")
+    Sys.sleep(1)
+    cat("BEGINNING ANTI AQUATIC WOOLLY MAMMOTH EXTERMINATION SIMULATION PROGRAM\n")
+    for(lines in 0:fun)
+    {
+      marks = "!"
+      for(numMarks in 0:floor(runif(1, 0, 8))){
+        marks <- paste(marks, "!", sep = "")
+      }
+      Sys.sleep(runif(1, 0, 0.2))
+      cat(sprintf("EXTERMINATE%s\n", marks))
+    }
+    Sys.sleep(.2)
+    cat("EXTERMINATE!!!!!!!!!!!!!!!\n")
+    cat("\n")
+    cat("Your simulation has been completed! Anything else?\n")
+  }
+  
   
   solution_model <<- matrix(0, 10, t+1)
   solution_model[,1] <<- c(j,0,0,0,0,a,0,0,0,0) #n0
@@ -394,8 +431,58 @@ main <- function(j = 50, a = 30, t = 15){
     solution_heuristics[year+1] <<- current_heuristic
   }
   
+  
   # print out solutions
   # print(solution_operations)
   # print_model(solution_model, t)
+
+    
 }
+
+mammoths <- function(){
+  cat("Sure thing, Chris!\n\n")
+  Sys.sleep(.5)
+  cat("Let's use a starting population of 100 juveniles and 80 adults.\n\n")
+  Sys.sleep(.5)
+  cat("This is what happens to the AWH population after 15 years, with no intervention.\n\n")
+  n0 = c(100,0,0,0,0,80,0,0,0,0)
+  M <- createM()
+  B <- createB()
+  # number of time units - 1
+  t = 16
+  n=matrix(0,10,t)
+  n[,1]= n0
+  for (i in 2:t)
+  {
+    n[,i] = B%*%M%*%n[,i-1]
+  }
   
+  print_model(n)
+  
+  Sys.sleep(2)
+  cat("\n\nAnything else?\n")
+}
+
+final <- function()
+{
+  main(150, 100, 15, 0)
+  print_model()
+  print_ops()
+}
+
+startup <- function(){
+  
+  cat("\014") 
+  cat("Hello, Chris!  What can I do for you today?\n") 
+
+}
+
+cleanup <- function() {
+  ENV <- globalenv()
+  ll <- ls(envir = ENV)
+  ll <- ll[ll != "cleanup"]
+  rm(list = ll, envir = ENV)
+  cat("\014") 
+}
+
+startup()
