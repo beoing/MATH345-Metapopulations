@@ -1,3 +1,8 @@
+## Chris To, Nathan Wikle
+## Aquatic Woolly Mammoth Simulation
+## 4/29/2016
+## Simulates AWM spread and intervention in our five-patch model.
+
 
 # A function to create matrix M.
 # Default matrix model (no conservation efforts)
