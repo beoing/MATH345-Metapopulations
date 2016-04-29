@@ -324,6 +324,9 @@ print_model <- function(sm = solution_model, t = 15){
 # Function to print table of operations
 # Input: 
 print_ops <- function(ops = solution_operations){
+  
+  cat("The operations used for this model were: \n\n")
+  
   solutions <- data.frame(stringsAsFactors = TRUE)
   for(i in 1:(length(ops)-1))
   {
@@ -356,7 +359,7 @@ print_ops <- function(ops = solution_operations){
   names <- paste(years,rows,sep=" ")
   names <- paste(names,colons, sep="")
   rownames(solutions)<-names
-  solutions
+  print(solutions)
 }
 
 # Main method of simulation
@@ -364,15 +367,15 @@ print_ops <- function(ops = solution_operations){
 #        a = initial number of adults
 #        t = time of simulation
 # Output: solution model, ops, heuristics (global vars)
-main <- function(j = 100, a = 80, t = 15, fun = 10){
+main <- function(j = 100, a = 80, t = 15, fun = 12){
   
   if(fun > 0) {
     cat("Certainly! I'll start that simulation up for you.\n")
     cat("\n")
-    cat("\n")
+    cat("*ahem*\n")
     cat("\n")
     Sys.sleep(1)
-    cat("BEGINNING ANTI AQUATIC WOOLLY MAMMOTH EXTERMINATION SIMULATION PROGRAM\n")
+    cat("BEGINNING ANTI AQUATIC WOOLLY MAMMOTH EXTERMINATION SIMULATION PROGRAM.\n")
     for(lines in 0:fun)
     {
       marks = "!"
@@ -385,7 +388,10 @@ main <- function(j = 100, a = 80, t = 15, fun = 10){
     Sys.sleep(.2)
     cat("EXTERMINATE!!!!!!!!!!!!!!!\n")
     cat("\n")
-    cat("Your simulation has been completed! Anything else?\n")
+    cat("Your simulation has been completed!\n")
+    cat("The results can be printed out at your convenience with print_sim().\n\n")
+    cat("Is there anything else I can do for you?\n")
+    
   }
   
   
@@ -471,15 +477,23 @@ print_sim <- function()
 
 final <- function()
 {
+  cat("Let's do another simulation: \nLet's set the initial population as the following: \n")
+  cat("Juveniles: 150\nAdults: 100\n\n")
+  
+  Sys.sleep(1)
+  
   main(150, 100, 15, 0)
   print_model()
   print_ops()
+
+  Sys.sleep(1)
+  cat("\n\nGood job, Chris! Almost there!\n\n")
 }
 
 startup <- function(){
   
   cat("\014") 
-  cat("Hello, Chris!  What can I do for you today?\n") 
+  cat("Hello, Chris! Good luck on your presentation today.\n\n What can I do for you?\n") 
 
 }
 
