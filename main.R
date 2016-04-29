@@ -463,6 +463,12 @@ mammoths <- function(){
   cat("\n\nAnything else?\n")
 }
 
+print_sim <- function()
+{
+  print_model()
+  print_ops()
+}
+
 final <- function()
 {
   main(150, 100, 15, 0)
